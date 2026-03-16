@@ -1,0 +1,186 @@
+/* ===== Image Upload Section ===== */
+.image-upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 560px;
+}
+
+/* ===== Drop Zone ===== */
+.drop-zone {
+  width: 100%;
+  min-height: 220px;
+  border: 2.5px dashed #b0bec5;
+  border-radius: 16px;
+  background: #f8fbff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.drop-zone:hover,
+.drop-zone.dragging {
+  border-color: #1a73e8;
+  background: #e8f0fe;
+}
+
+.drop-zone-icon {
+  font-size: 3rem;
+}
+
+.drop-zone-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.drop-zone-subtitle {
+  font-size: 0.95rem;
+  color: #777;
+  line-height: 1.5;
+}
+
+.drop-zone-formats {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+/* ===== Image Preview ===== */
+.image-preview-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.image-preview-container {
+  position: relative;
+  width: 100%;
+  max-height: 280px;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 2px solid #e0e0e0;
+}
+
+.image-preview {
+  width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+  background: #f5f5f5;
+  display: block;
+}
+
+.clear-image-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.clear-image-btn:hover {
+  background: rgba(0,0,0,0.85);
+}
+
+/* ===== Controls ===== */
+.image-upload-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nova-analysis-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nova-chip {
+  background: #e8f0fe;
+  color: #1a73e8;
+  border: 1px solid #c5d8fa;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.chip-arrow {
+  color: #aaa;
+  font-size: 1rem;
+}
+
+.image-symptoms-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: none;
+  transition: border-color 0.2s;
+  color: #333;
+}
+
+.image-symptoms-input:focus {
+  border-color: #1a73e8;
+  outline: none;
+}
+
+.image-symptoms-input::placeholder {
+  color: #bbb;
+}
+
+.analyze-image-btn {
+  padding: 14px;
+  background: linear-gradient(135deg, #7b1fa2, #4a148c);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(123, 31, 162, 0.3);
+}
+
+.analyze-image-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(123, 31, 162, 0.4);
+}
+
+/* ===== Image Disclaimer ===== */
+.image-disclaimer {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 10px;
+  padding: 10px 14px;
+  width: 100%;
+}
+
+.image-disclaimer p {
+  font-size: 0.82rem;
+  color: #795548;
+  text-align: center;
+}

@@ -1,0 +1,207 @@
+/* ===== Voice Section ===== */
+.voice-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  width: 100%;
+  padding: 16px 0;
+}
+
+/* ===== Mic Button ===== */
+.mic-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 180px;
+}
+
+.pulse-ring {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  transition: transform 0.1s ease;
+}
+
+.ring-1 {
+  background: rgba(26, 115, 232, 0.12);
+}
+
+.ring-2 {
+  background: rgba(26, 115, 232, 0.06);
+}
+
+.mic-button {
+  position: relative;
+  z-index: 2;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+  background: linear-gradient(135deg, #1a73e8, #0d47a1);
+  color: white;
+  box-shadow: 0 8px 32px rgba(26, 115, 232, 0.4);
+}
+
+.mic-button:hover:not(:disabled) {
+  box-shadow: 0 12px 40px rgba(26, 115, 232, 0.5);
+}
+
+.mic-button:active:not(:disabled) {
+  transform: scale(0.97) !important;
+}
+
+.mic-idle {
+  background: linear-gradient(135deg, #1a73e8, #0d47a1);
+}
+
+.mic-recording {
+  background: linear-gradient(135deg, #e53935, #b71c1c);
+  box-shadow: 0 8px 32px rgba(229, 57, 53, 0.5);
+}
+
+.mic-processing {
+  background: linear-gradient(135deg, #43a047, #1b5e20);
+  cursor: not-allowed;
+}
+
+/* ===== Processing dots ===== */
+.dot-spinner {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.dot-spinner span {
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  animation: dotBounce 1.2s ease-in-out infinite;
+}
+
+.dot-spinner span:nth-child(2) { animation-delay: 0.2s; }
+.dot-spinner span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: scale(0.8); opacity: 0.6; }
+  40% { transform: scale(1.2); opacity: 1; }
+}
+
+/* ===== Status Text ===== */
+.voice-status {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-main {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.status-main.recording {
+  color: #e53935;
+}
+
+.status-sub {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+/* ===== Audio Visualizer ===== */
+.audio-visualizer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 48px;
+  margin-top: 8px;
+}
+
+.vis-bar {
+  width: 5px;
+  background: linear-gradient(to top, #e53935, #ef9a9a);
+  border-radius: 3px;
+  transition: height 0.1s ease;
+  min-height: 4px;
+}
+
+/* ===== Transcription ===== */
+.transcription-preview {
+  background: #f0f4ff;
+  border-left: 4px solid #1a73e8;
+  border-radius: 0 12px 12px 0;
+  padding: 14px 18px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.transcription-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #1a73e8;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.transcription-text {
+  font-size: 1.05rem;
+  color: #333;
+  font-style: italic;
+}
+
+/* ===== Instructions ===== */
+.voice-instructions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.instruction {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.step {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #1a73e8;
+  color: white;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.instruction-arrow {
+  color: #aaa;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 480px) {
+  .mic-button { width: 120px; height: 120px; }
+  .mic-wrapper { width: 150px; height: 150px; }
+  .pulse-ring { width: 130px; height: 130px; }
+  .mic-button svg { width: 42px; height: 42px; }
+  .instruction-arrow { display: none; }
+}

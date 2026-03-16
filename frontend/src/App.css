@@ -1,0 +1,302 @@
+/* ===== App Layout ===== */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== Header ===== */
+.app-header {
+  background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+  color: white;
+  padding: 16px 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.header-content {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-icon {
+  font-size: 2.5rem;
+}
+
+.logo h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin: 0;
+}
+
+.nova-badge {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* ===== Disclaimer Banner ===== */
+.disclaimer-banner {
+  background: #fff3cd;
+  border-bottom: 2px solid #ffc107;
+  padding: 10px 24px;
+  text-align: center;
+}
+
+.disclaimer-banner p {
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 0.85rem;
+  color: #856404;
+  font-weight: 500;
+}
+
+/* ===== Main ===== */
+.app-main {
+  flex: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  width: 100%;
+}
+
+/* ===== Tabs ===== */
+.tab-nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 12px 20px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #555;
+  flex: 1;
+  min-width: 130px;
+}
+
+.tab-btn:hover {
+  border-color: #1a73e8;
+  color: #1a73e8;
+}
+
+.tab-btn.active {
+  background: #1a73e8;
+  border-color: #1a73e8;
+  color: white;
+  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+}
+
+/* ===== Tab Content ===== */
+.tab-content {
+  background: white;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  margin-bottom: 24px;
+}
+
+.tab-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.tab-description {
+  text-align: center;
+  color: #666;
+  font-size: 1.05rem;
+  max-width: 500px;
+  line-height: 1.7;
+}
+
+/* ===== Text Input ===== */
+.text-input-section {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.symptoms-textarea {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.2s;
+  color: #333;
+  line-height: 1.6;
+}
+
+.symptoms-textarea:focus {
+  border-color: #1a73e8;
+  outline: none;
+}
+
+.symptoms-textarea::placeholder {
+  color: #aaa;
+}
+
+.analyze-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #1a73e8, #0d47a1);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+}
+
+.analyze-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(26, 115, 232, 0.4);
+}
+
+.analyze-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== Loading Overlay ===== */
+.loading-overlay {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0;
+}
+
+.loading-card {
+  background: white;
+  border-radius: 16px;
+  padding: 32px 48px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.loading-card p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a73e8;
+}
+
+.loading-subtext {
+  font-size: 0.9rem !important;
+  color: #888 !important;
+  font-weight: 400 !important;
+}
+
+.loading-spinner-large {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #e0eaff;
+  border-top-color: #1a73e8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* ===== Error Card ===== */
+.error-card {
+  background: #fff5f5;
+  border: 2px solid #ff4444;
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 1rem;
+  color: #c62828;
+  margin-bottom: 24px;
+}
+
+/* ===== Footer ===== */
+.app-footer {
+  background: #1a1a2e;
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  padding: 24px 16px;
+  margin-top: auto;
+}
+
+.app-footer p {
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-disclaimer {
+  color: #ffc107 !important;
+  font-size: 0.8rem !important;
+}
+
+.footer-copyright {
+  color: rgba(255,255,255,0.4) !important;
+  font-size: 0.75rem !important;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .logo h1 { font-size: 1.4rem; }
+  .logo-icon { font-size: 2rem; }
+  .tab-btn { font-size: 0.9rem; padding: 10px 12px; }
+  .tab-content { padding: 20px 16px; }
+  .nova-badge { display: none; }
+}

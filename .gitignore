@@ -1,0 +1,28 @@
+# Environment variables - NEVER commit
+.env
+.env.local
+.env.*.local
+
+# Maven
+backend/target/
+backend/*.jar
+
+# Node
+frontend/node_modules/
+frontend/build/
+frontend/.env.local
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
