@@ -1,147 +1,108 @@
-# MediVoice AI 🏥🎙️
+# MediVoice AI 🏥
 
-> Voice-powered medical assistant using **#AmazonNova** models on Amazon Bedrock
+> An intelligent voice-powered medical assistant 
+> that provides instant AI health guidance.
 
-**⚠️ MEDICAL DISCLAIMER:** MediVoice AI is for informational purposes only. It does NOT replace professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider for medical concerns. In case of emergency, call 911 immediately.
+![Java](https://img.shields.io/badge/Java-22-orange)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.2-green)
+![React](https://img.shields.io/badge/React-18-blue)
 
----
+## 🌟 Overview
 
-## Overview
+MediVoice AI is a full-stack web application 
+that helps users get instant medical guidance 
+by speaking or typing their symptoms, or by 
+uploading medical images for AI analysis.
 
-MediVoice AI lets users speak their symptoms, upload medical photos, and receive AI-powered medical information — all powered by Amazon Nova's multimodal AI capabilities on Amazon Bedrock.
+## ✨ Features
 
-## Amazon Nova Models Used
+- 🎤 **Voice Input** — Speak your symptoms naturally
+- ⌨️ **Text Analysis** — Type symptoms and get guidance
+- 📸 **Image Analysis** — Upload medical photos for AI analysis
+- 📋 **Search History** — View all your past searches
+- 🔐 **User Authentication** — Secure login and registration
+- ⚠️ **Medical Disclaimer** — Responsible AI design
 
-| Model | Role | Usage |
-|-------|------|-------|
-| **Amazon Nova Sonic** (`amazon.nova-sonic-v1:0`) | Voice AI | Speech-to-Text (STT) + Text-to-Speech (TTS) via bidirectional streaming |
-| **Amazon Nova Lite** (`amazon.nova-lite-v1:0`) | Multimodal LLM | Symptom analysis via LangChain4j agent + Visual image analysis |
-| **Amazon Nova Multimodal Embeddings** (`amazon.nova-embed-v1`) | Embeddings | Image vectorization + Text semantic embeddings |
+## 🛠️ Tech Stack
 
-## Tech Stack
+### Frontend
+- React.js
+- CSS3
+- Web Speech API
+- localStorage
 
-- **Backend:** Java 17 + Spring Boot 3.2 + Maven
-- **Frontend:** React 18 + Web Audio API
-- **AI Framework:** LangChain4j (Bedrock integration)
-- **AWS SDK:** AWS SDK for Java v2 (`software.amazon.awssdk`)
-- **Storage:** AWS S3
+### Backend
+- Java 22
+- Spring Boot 3.2
+- LangChain4j
+- Maven
 
-## Features
+### Cloud & AI
+- Amazon Bedrock
+- AWS S3
+- AI Language Models
 
-- 🎙️ **Big Microphone Button** — tap to speak symptoms directly
-- 🔊 **Nova Sonic STT** — real-time voice transcription via bidirectional streaming
-- 🧠 **Nova Lite Agent** — LangChain4j-powered symptom analysis
-- 📷 **Photo Upload** — drag & drop medical photos for visual analysis
-- 🔬 **Nova Multimodal Embeddings** — image vectorization for semantic understanding
-- 🔊 **Nova Sonic TTS** — AI reads the response back to you
-- 📦 **AWS S3** — secure medical image storage
-- ⌨️ **Text Input** — type symptoms as an alternative to voice
-- 📱 **Mobile-Friendly** — designed for all screen sizes including elderly users
-- ⚠️ **Medical Disclaimer** — displayed prominently on every page
-
-## Project Structure
-
-```
-medivoice-ai/
-├── backend/
-│   ├── src/main/java/com/medivoice/
-│   │   ├── MediVoiceApplication.java          # Spring Boot entry point
-│   │   ├── controller/
-│   │   │   └── MediVoiceController.java        # REST API endpoints
-│   │   ├── service/
-│   │   │   ├── NovaVoiceService.java           # Nova Sonic STT + TTS
-│   │   │   ├── NovaAgentService.java           # Nova Lite + LangChain4j agent
-│   │   │   └── NovaEmbedService.java           # Nova Embed + S3 + Nova Lite vision
-│   │   ├── config/
-│   │   │   └── AwsConfig.java                  # AWS SDK v2 configuration
-│   │   └── model/
-│   │       ├── MedicalRequest.java
-│   │       └── MedicalResponse.java
-│   ├── src/main/resources/
-│   │   └── application.properties
-│   └── pom.xml
-├── frontend/
-│   ├── src/
-│   │   ├── App.jsx                             # Main app + tab navigation
-│   │   ├── App.css
-│   │   ├── VoiceButton.jsx                     # Mic button + Web Audio API
-│   │   ├── VoiceButton.css
-│   │   ├── ImageUpload.jsx                     # Photo upload + drag-drop
-│   │   ├── ImageUpload.css
-│   │   ├── ResponseDisplay.jsx                 # Analysis results + audio player
-│   │   └── ResponseDisplay.css
-│   ├── public/index.html
-│   └── package.json
-├── .env                                        # Environment variables (never commit!)
-├── .gitignore
-└── README.md
-```
-
-## API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/medivoice/health` | Health check |
-| POST | `/api/medivoice/analyze` | Full analysis (audio + image + symptoms) |
-| POST | `/api/medivoice/voice` | Voice file upload analysis |
-| POST | `/api/medivoice/image` | Image analysis with optional symptoms |
-| POST | `/api/medivoice/symptoms` | Text symptom analysis |
-
-## Setup & Run
+## 🚀 Getting Started
 
 ### Prerequisites
-- Java 17+
+- Java 22+
 - Node.js 18+
-- Maven 3.8+
-- AWS account with Bedrock access (Nova models enabled in us-east-1)
+- Maven
+- AWS Account
 
-### 1. Configure Environment Variables
-```bash
-# Copy .env values to your system, or set in application.properties
-export AWS_ACCESS_KEY_ID=your_key
-export AWS_SECRET_ACCESS_KEY=your_secret
-export AWS_REGION=us-east-1
-export S3_BUCKET_NAME=your-bucket-name
-```
-
-### 2. Enable Nova Models in AWS Console
-Go to **Amazon Bedrock → Model Access** and enable:
-- amazon.nova-sonic-v1:0
-- amazon.nova-lite-v1:0
-- amazon.nova-embed-v1
-
-### 3. Start Backend
+### Backend Setup
 ```bash
 cd backend
 mvn spring-boot:run
-# Backend starts on http://localhost:8080
 ```
 
-### 4. Start Frontend
+### Frontend Setup
 ```bash
 cd frontend
 npm install
 npm start
-# Frontend starts on http://localhost:3000
 ```
 
-### 5. Open Browser
-Navigate to `http://localhost:3000`
+### Environment Variables
+```
+AWS_ACCESS_KEY_ID=your_key
+AWS_SECRET_ACCESS_KEY=your_secret
+AWS_REGION=us-east-1
+S3_BUCKET_NAME=your_bucket
+```
 
-## Usage
+## 📱 Screenshots
 
-1. **Voice Input:** Click the large microphone button → speak symptoms → click again to stop → hear AI response
-2. **Text Input:** Switch to "Type Symptoms" tab → type symptoms → click Analyze
-3. **Photo Upload:** Switch to "Upload Photo" tab → drag & drop or click to upload → click Analyze
+### Login Page
+Clean and professional login interface
 
-## Medical Safety Features
+### Dashboard
+Voice, text and image analysis in one place
 
-- Disclaimer on every page and every response
-- Emergency 911 notice for life-threatening symptoms
-- AI never provides definitive diagnoses
-- All responses recommend consulting real healthcare providers
-- Simple, large-font UI designed for elderly users
+### Analysis Results
+Detailed AI-powered health guidance
+
+## 🔒 Disclaimer
+
+MediVoice AI provides general health information 
+for educational purposes only. Always consult a 
+qualified healthcare professional for medical advice.
+
+## 📄 License
+
+MIT License — feel free to use and modify!
+
+## 🤝 Contributing
+
+Contributions are welcome! 
+Please feel free to submit a Pull Request.
+```
+
+### Step 4 — Scroll down and click:
+**"Commit changes"** button!
 
 ---
 
-Built with ❤️ using **#AmazonNova** · Amazon Bedrock · AWS SDK for Java v2 · LangChain4j · Spring Boot 3 · React 18
+## Commit Message:
+```
+Update README - professional project documentation
