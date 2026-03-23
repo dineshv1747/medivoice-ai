@@ -29,7 +29,7 @@ import java.util.UUID;
 public class NovaEmbedService {
 
     private static final Logger log = LoggerFactory.getLogger(NovaEmbedService.class);
-    private static final String NOVA_EMBED_MODEL_ID = "amazon.nova-embed-v1";
+    private static final String NOVA_EMBED_MODEL_ID = "amazon.nova-embed-v1:0";
     private static final String NOVA_LITE_MODEL_ID = "amazon.nova-lite-v1:0";
 
     @Autowired

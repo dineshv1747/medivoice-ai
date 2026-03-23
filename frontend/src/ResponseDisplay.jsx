@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import './ResponseDisplay.css';
 
-const DISCLAIMER = "⚠️ MEDICAL DISCLAIMER: This information is for educational purposes only and does not replace professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider.";
 
 /**
  * ResponseDisplay - shows the full medical analysis result.
@@ -73,20 +72,15 @@ function ResponseDisplay({ result }) {
 
   const formatAnalysis = (text) => {
     if (!text) return null;
-    // Split into paragraphs and render
-    return text.split('\n').filter(line => line.trim()).map((line, i) => {
-      // Render disclaimer lines specially
-      if (line.includes('MEDICAL DISCLAIMER') || line.includes('⚠️')) {
-        return (
-          <p key={i} className="response-disclaimer-line">{line}</p>
-        );
-      }
-      // Bold headers (lines ending with colon or all caps)
-      if (line.endsWith(':') || line === line.toUpperCase()) {
-        return <p key={i} className="response-section-header">{line}</p>;
-      }
-      return <p key={i} className="response-paragraph">{line}</p>;
-    });
+    return text.split('\n')
+      .filter(line => line.trim())
+      .filter(line => !line.includes('MEDICAL DISCLAIMER') && !line.includes('DISCLAIMER:'))
+      .map((line, i) => {
+        if (line.endsWith(':') || line === line.toUpperCase()) {
+          return <p key={i} className="response-section-header">{line}</p>;
+        }
+        return <p key={i} className="response-paragraph">{line}</p>;
+      });
   };
 
   if (!result) return null;
@@ -98,7 +92,6 @@ function ResponseDisplay({ result }) {
         <div className="response-header-left">
           <span className="response-icon">🏥</span>
           <h2>MediVoice AI Analysis</h2>
-          <span className="nova-tag">Amazon Nova</span>
         </div>
         <button className="expand-btn" aria-label={isExpanded ? 'Collapse' : 'Expand'}>
           {isExpanded ? '▲' : '▼'}
@@ -107,17 +100,12 @@ function ResponseDisplay({ result }) {
 
       {isExpanded && (
         <div className="response-body">
-          {/* Disclaimer */}
-          <div className="top-disclaimer">
-            <p>{DISCLAIMER}</p>
-          </div>
-
           {/* Transcribed Text */}
           {result.transcribedText && (
             <div className="response-section">
               <div className="section-label">
                 <span className="section-icon">🎙️</span>
-                <span>Nova Sonic transcribed:</span>
+                <span>You said:</span>
               </div>
               <div className="transcription-box">
                 <p>"{result.transcribedText}"</p>
@@ -130,7 +118,7 @@ function ResponseDisplay({ result }) {
             <div className="response-section">
               <div className="section-label">
                 <span className="section-icon">📸</span>
-                <span>Nova Multimodal image analysis:</span>
+                <span>Image Analysis Results:</span>
               </div>
               <div className="image-analysis-box">
                 {formatAnalysis(result.imageAnalysis)}
@@ -143,7 +131,7 @@ function ResponseDisplay({ result }) {
             <div className="response-section">
               <div className="section-label">
                 <span className="section-icon">🩺</span>
-                <span>Nova Lite medical analysis:</span>
+                <span>MediVoice AI Analysis:</span>
               </div>
               <div className="analysis-box">
                 {formatAnalysis(result.analysisText)}
@@ -156,7 +144,7 @@ function ResponseDisplay({ result }) {
             <div className="audio-controls-section">
               <div className="section-label">
                 <span className="section-icon">🔊</span>
-                <span>Nova Sonic voice response:</span>
+                <span>Voice Response:</span>
               </div>
               <div className="audio-controls">
                 {!isPlayingAudio ? (
@@ -171,7 +159,7 @@ function ResponseDisplay({ result }) {
                 {isPlayingAudio && (
                   <div className="playing-indicator">
                     <span className="sound-wave">🔊</span>
-                    <span>Nova Sonic speaking...</span>
+                    <span>Playing response...</span>
                     <div className="sound-bars">
                       <div className="sound-bar" />
                       <div className="sound-bar" />
@@ -190,16 +178,6 @@ function ResponseDisplay({ result }) {
               <span>📦 Image securely stored in AWS S3</span>
             </div>
           )}
-
-          {/* Nova models used */}
-          <div className="models-used">
-            <p>Powered by:</p>
-            <div className="model-chips">
-              <span className="model-chip sonic">🎙️ Nova Sonic (STT + TTS)</span>
-              <span className="model-chip lite">🧠 Nova Lite (Analysis)</span>
-              <span className="model-chip embed">🔬 Nova Embed (Image)</span>
-            </div>
-          </div>
 
           {/* Emergency Notice */}
           <div className="emergency-notice">

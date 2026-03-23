@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import VoiceButton from './VoiceButton';
 import ImageUpload from './ImageUpload';
 import ResponseDisplay from './ResponseDisplay';
+import LoginPage from './LoginPage';
+import RegisterPage from './RegisterPage';
+import HistoryPanel from './HistoryPanel';
 import './App.css';
 
-const DISCLAIMER = "⚠️ MEDICAL DISCLAIMER: MediVoice AI is for informational purposes only. It does NOT replace professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider for medical concerns. In case of emergency, call 911 immediately.";
+const DISCLAIMER = "MediVoice AI provides general health information for educational purposes only. Always consult a qualified healthcare professional for medical advice.";
 
 function App() {
   const [analysisResult, setAnalysisResult] = useState(null);
@@ -13,14 +16,94 @@ function App() {
   const [symptoms, setSymptoms] = useState('');
   const [activeTab, setActiveTab] = useState('voice'); // 'voice' | 'text' | 'image'
 
+  // Auth state
+  const [currentUser, setCurrentUser] = useState(null);
+  const [authPage, setAuthPage] = useState('login'); // 'login' | 'register'
+
+  // History state
+  const [history, setHistory] = useState([]);
+  const [showHistory, setShowHistory] = useState(false);
+
+  const historyKey = (user) => `medivoice_history_${user}`;
+
+  useEffect(() => {
+    const saved = localStorage.getItem('medivoice_current_user');
+    if (saved) {
+      try {
+        const session = JSON.parse(saved);
+        setCurrentUser(session.username);
+        const h = JSON.parse(localStorage.getItem(historyKey(session.username)) || '[]');
+        setHistory(h);
+      } catch {
+        localStorage.removeItem('medivoice_current_user');
+      }
+    }
+  }, []);
+
+  const saveToHistory = (type, symptoms, result) => {
+    if (!currentUser) return;
+    const entry = {
+      id: Date.now() + Math.random().toString(36).slice(2),
+      timestamp: Date.now(),
+      type,
+      symptoms: symptoms || '',
+      analysisText: result.analysisText || '',
+      imageAnalysis: result.imageAnalysis || '',
+    };
+    setHistory(prev => {
+      const updated = [entry, ...prev];
+      localStorage.setItem(historyKey(currentUser), JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  const handleDeleteHistory = (id) => {
+    setHistory(prev => {
+      const updated = prev.filter(item => item.id !== id);
+      localStorage.setItem(historyKey(currentUser), JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  const handleClearAllHistory = () => {
+    setHistory([]);
+    localStorage.setItem(historyKey(currentUser), '[]');
+  };
+
+  const handleLogin = (username) => {
+    setCurrentUser(username);
+    setAuthPage('login');
+    const h = JSON.parse(localStorage.getItem(historyKey(username)) || '[]');
+    setHistory(h);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('medivoice_current_user');
+    setCurrentUser(null);
+    setAnalysisResult(null);
+    setError(null);
+    setHistory([]);
+    setShowHistory(false);
+  };
+
+  // Show auth pages when not logged in
+  if (!currentUser) {
+    if (authPage === 'register') {
+      return <RegisterPage onGoLogin={() => setAuthPage('login')} />;
+    }
+    return <LoginPage onLogin={handleLogin} onGoRegister={() => setAuthPage('register')} />;
+  }
+
   const handleVoiceResult = (result) => {
     setAnalysisResult(result);
     setError(null);
+    saveToHistory('voice', result.transcribedText, result);
   };
 
   const handleImageResult = (result) => {
     setAnalysisResult(result);
     setError(null);
+    saveToHistory('image', result.symptoms || '', result);
   };
 
   const handleError = (err) => {
@@ -44,6 +127,7 @@ function App() {
       const data = await response.json();
       if (data.success) {
         setAnalysisResult(data);
+        saveToHistory('text', symptoms.trim(), data);
       } else {
         setError(data.errorMessage || 'Analysis failed. Please try again.');
       }
@@ -63,11 +147,20 @@ function App() {
             <span className="logo-icon">🏥</span>
             <div>
               <h1>MediVoice AI</h1>
-              <p className="subtitle">Powered by Amazon Nova</p>
+              <p className="subtitle">Intelligent Health Assistant</p>
             </div>
           </div>
-          <div className="nova-badge">
-            <span>🤖 Nova Sonic + Nova Lite + Nova Embed</span>
+          <div className="header-right">
+            <button className="history-toggle-btn" onClick={() => setShowHistory(s => !s)}>
+              📋 History
+              {history.length > 0 && (
+                <span className="history-badge">{history.length}</span>
+              )}
+            </button>
+            <div className="user-info">
+              <span className="welcome-msg">👤 {currentUser}</span>
+              <button className="logout-btn" onClick={handleLogout}>Logout</button>
+            </div>
           </div>
         </div>
       </header>
@@ -79,26 +172,36 @@ function App() {
 
       {/* Main Content */}
       <main className="app-main">
-        {/* Tab Navigation */}
-        <div className="tab-nav">
-          <button
-            className={`tab-btn ${activeTab === 'voice' ? 'active' : ''}`}
-            onClick={() => setActiveTab('voice')}
-          >
-            🎙️ Voice Input
-          </button>
-          <button
-            className={`tab-btn ${activeTab === 'text' ? 'active' : ''}`}
-            onClick={() => setActiveTab('text')}
-          >
-            ⌨️ Type Symptoms
-          </button>
-          <button
-            className={`tab-btn ${activeTab === 'image' ? 'active' : ''}`}
-            onClick={() => setActiveTab('image')}
-          >
-            📷 Upload Photo
-          </button>
+        {/* Hero + Feature Cards */}
+        <div className="hero-section">
+          <h2>How can we help you today?</h2>
+          <p>Choose a method below to get instant AI-powered health guidance</p>
+          <div className="feature-cards">
+            <div
+              className={`feature-card ${activeTab === 'voice' ? 'active' : ''}`}
+              onClick={() => setActiveTab('voice')}
+            >
+              <span className="feature-card-icon">🎤</span>
+              <div className="feature-card-title">Voice Analysis</div>
+              <div className="feature-card-desc">Speak your symptoms aloud</div>
+            </div>
+            <div
+              className={`feature-card ${activeTab === 'text' ? 'active' : ''}`}
+              onClick={() => setActiveTab('text')}
+            >
+              <span className="feature-card-icon">⌨️</span>
+              <div className="feature-card-title">Symptom Check</div>
+              <div className="feature-card-desc">Type your symptoms in detail</div>
+            </div>
+            <div
+              className={`feature-card ${activeTab === 'image' ? 'active' : ''}`}
+              onClick={() => setActiveTab('image')}
+            >
+              <span className="feature-card-icon">📸</span>
+              <div className="feature-card-title">Image Analysis</div>
+              <div className="feature-card-desc">Upload a photo for visual AI review</div>
+            </div>
+          </div>
         </div>
 
         {/* Tab Content */}
@@ -106,8 +209,8 @@ function App() {
           {activeTab === 'voice' && (
             <div className="tab-panel">
               <p className="tab-description">
-                Press the microphone button and describe your symptoms out loud.
-                Nova Sonic will transcribe your voice and Nova Lite will analyze your symptoms.
+                Click the microphone and describe your symptoms.
+                MediVoice AI will analyze your symptoms and provide guidance.
               </p>
               <VoiceButton
                 onResult={handleVoiceResult}
@@ -120,8 +223,7 @@ function App() {
           {activeTab === 'text' && (
             <div className="tab-panel">
               <p className="tab-description">
-                Type your symptoms below. Nova Lite will analyze them and
-                Nova Sonic will read the response back to you.
+                Type your symptoms below and receive instant AI-powered health guidance.
               </p>
               <div className="text-input-section">
                 <textarea
@@ -153,8 +255,7 @@ function App() {
           {activeTab === 'image' && (
             <div className="tab-panel">
               <p className="tab-description">
-                Upload a photo (skin condition, injury, etc.). Nova Multimodal Embeddings
-                and Nova Lite will analyze it for medical context.
+                Upload a photo (skin condition, injury, rash, etc.) for AI-powered visual health analysis.
               </p>
               <ImageUpload
                 onResult={handleImageResult}
@@ -170,8 +271,8 @@ function App() {
           <div className="loading-overlay">
             <div className="loading-card">
               <div className="loading-spinner-large" />
-              <p>Amazon Nova is analyzing...</p>
-              <p className="loading-subtext">Nova Sonic + Nova Lite + Nova Embed at work</p>
+              <p>Analyzing your symptoms...</p>
+              <p className="loading-subtext">Please wait</p>
             </div>
           </div>
         )}
@@ -192,17 +293,28 @@ function App() {
         )}
       </main>
 
+      {/* History Panel (slide-in) */}
+      {showHistory && (
+        <HistoryPanel
+          history={history}
+          onDelete={handleDeleteHistory}
+          onClearAll={handleClearAllHistory}
+          onClose={() => setShowHistory(false)}
+        />
+      )}
+
       {/* Footer */}
       <footer className="app-footer">
-        <p>
-          MediVoice AI uses <strong>Amazon Nova Sonic</strong> (voice),{' '}
-          <strong>Amazon Nova Lite</strong> (analysis), and{' '}
-          <strong>Amazon Nova Multimodal Embeddings</strong> (image understanding)
-        </p>
+        <p className="footer-tagline">AI-powered health guidance for everyone</p>
         <p className="footer-disclaimer">{DISCLAIMER}</p>
-        <p className="footer-copyright">
-          Built with Amazon Bedrock · AWS SDK for Java v2 · LangChain4j · Spring Boot 3 · React
-        </p>
+        <div className="footer-links">
+          <a href="#privacy">Privacy Policy</a>
+          <span>|</span>
+          <a href="#terms">Terms of Service</a>
+          <span>|</span>
+          <a href="#contact">Contact</a>
+        </div>
+        <p className="footer-copyright">© 2026 MediVoice AI. All rights reserved.</p>
       </footer>
     </div>
   );

@@ -141,11 +141,11 @@ function ImageUpload({ onResult, onError, onLoadingChange }) {
 
           <div className="image-upload-controls">
             <div className="nova-analysis-info">
-              <span className="nova-chip">Nova Embed</span>
+              <span className="nova-chip">AI Image Analysis</span>
               <span className="chip-arrow">→</span>
-              <span className="nova-chip">Nova Lite Multimodal</span>
+              <span className="nova-chip">Visual Health Insights</span>
               <span className="chip-arrow">→</span>
-              <span className="nova-chip">AWS S3</span>
+              <span className="nova-chip">Secure Storage</span>
             </div>
 
             <textarea
@@ -160,7 +160,7 @@ function ImageUpload({ onResult, onError, onLoadingChange }) {
               className="analyze-image-btn"
               onClick={handleAnalyze}
             >
-              🔬 Analyze with Nova AI
+              🔬 Analyze Image
             </button>
           </div>
         </div>

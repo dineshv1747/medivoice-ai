@@ -245,13 +245,13 @@ function VoiceButton({ onResult, onError, onLoadingChange }) {
         )}
         {recordingState === 'processing' && (
           <>
-            <p className="status-main">Analyzing with Amazon Nova...</p>
-            <p className="status-sub">Nova Lite analysis + Nova Sonic TTS</p>
+            <p className="status-main">Analyzing your symptoms...</p>
+            <p className="status-sub">Please wait</p>
           </>
         )}
         {isPlayingAudio && (
           <>
-            <p className="status-main">🔊 Nova Sonic is speaking...</p>
+            <p className="status-main">🔊 Playing response...</p>
             <p className="status-sub">Listen to the analysis</p>
           </>
         )}
@@ -260,7 +260,7 @@ function VoiceButton({ onResult, onError, onLoadingChange }) {
       {/* Live transcript preview */}
       {liveTranscript && (
         <div className="transcription-preview">
-          <p className="transcription-label">Nova heard:</p>
+          <p className="transcription-label">You said:</p>
           <p className="transcription-text">"{liveTranscript}"</p>
         </div>
       )}
