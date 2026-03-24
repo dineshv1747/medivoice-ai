@@ -1,5 +1,6 @@
 # MediVoice AI 🏥
 
+<<<<<<< HEAD
 > An intelligent, voice-powered medical assistant that provides instant AI-driven health guidance through voice, text, and image inputs.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
@@ -7,11 +8,23 @@
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2-green.svg)
 ![React](https://img.shields.io/badge/React-18-61DAFB.svg)
 ![AWS](https://img.shields.io/badge/AWS-Bedrock-FF9900.svg)
+=======
+> An intelligent voice-powered medical assistant 
+> that provides instant AI health guidance.
 
----
+![Java](https://img.shields.io/badge/Java-22-orange)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.2-green)
+![React](https://img.shields.io/badge/React-18-blue)
+>>>>>>> 84c91ec6e24c0a50e3e17c7757ba9b48aeca7692
 
-## Overview
+## 🌟 Overview
 
+MediVoice AI is a full-stack web application 
+that helps users get instant medical guidance 
+by speaking or typing their symptoms, or by 
+uploading medical images for AI analysis.
+
+<<<<<<< HEAD
 MediVoice AI is a full-stack web application that lets users describe their symptoms via voice, text, or photo and receive instant AI-powered health guidance. It combines a React frontend with a Java Spring Boot backend, using AWS Bedrock AI models for natural language understanding and speech synthesis.
 
 **Key capabilities:**
@@ -25,9 +38,37 @@ MediVoice AI is a full-stack web application that lets users describe their symp
 > ⚠️ **Medical Disclaimer:** MediVoice AI is for informational purposes only. It does not replace professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional.
 
 ---
+=======
+## ✨ Features
 
-## Features
+- 🎤 **Voice Input** — Speak your symptoms naturally
+- ⌨️ **Text Analysis** — Type symptoms and get guidance
+- 📸 **Image Analysis** — Upload medical photos for AI analysis
+- 📋 **Search History** — View all your past searches
+- 🔐 **User Authentication** — Secure login and registration
+- ⚠️ **Medical Disclaimer** — Responsible AI design
 
+## 🛠️ Tech Stack
+
+### Frontend
+- React.js
+- CSS3
+- Web Speech API
+- localStorage
+
+### Backend
+- Java 22
+- Spring Boot 3.2
+- LangChain4j
+- Maven
+>>>>>>> 84c91ec6e24c0a50e3e17c7757ba9b48aeca7692
+
+### Cloud & AI
+- Amazon Bedrock
+- AWS S3
+- AI Language Models
+
+<<<<<<< HEAD
 | Feature | Description |
 |---|---|
 | Voice Recognition | Real-time browser speech-to-text via Web Speech API |
@@ -106,12 +147,30 @@ The API will be available at `http://localhost:8080`.
 
 ### 4. Start the frontend
 
+=======
+## 🚀 Getting Started
+
+### Prerequisites
+- Java 22+
+- Node.js 18+
+- Maven
+- AWS Account
+
+### Backend Setup
+```bash
+cd backend
+mvn spring-boot:run
+```
+
+### Frontend Setup
+>>>>>>> 84c91ec6e24c0a50e3e17c7757ba9b48aeca7692
 ```bash
 cd frontend
 npm install
 npm start
 ```
 
+<<<<<<< HEAD
 The app will open at `http://localhost:3000` and proxy API calls to port 8080.
 
 ---
@@ -212,3 +271,48 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 ## Disclaimer
 
 MediVoice AI provides general health information for **educational purposes only**. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the guidance of a qualified healthcare provider with any questions you may have regarding a medical condition. In case of emergency, call your local emergency services immediately.
+=======
+### Environment Variables
+```
+AWS_ACCESS_KEY_ID=your_key
+AWS_SECRET_ACCESS_KEY=your_secret
+AWS_REGION=us-east-1
+S3_BUCKET_NAME=your_bucket
+```
+
+## 📱 Screenshots
+
+### Login Page
+Clean and professional login interface
+
+### Dashboard
+Voice, text and image analysis in one place
+
+### Analysis Results
+Detailed AI-powered health guidance
+
+## 🔒 Disclaimer
+
+MediVoice AI provides general health information 
+for educational purposes only. Always consult a 
+qualified healthcare professional for medical advice.
+
+## 📄 License
+
+MIT License — feel free to use and modify!
+
+## 🤝 Contributing
+
+Contributions are welcome! 
+Please feel free to submit a Pull Request.
+```
+
+### Step 4 — Scroll down and click:
+**"Commit changes"** button!
+
+---
+
+## Commit Message:
+```
+Update README - professional project documentation
+>>>>>>> 84c91ec6e24c0a50e3e17c7757ba9b48aeca7692
